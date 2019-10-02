@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
@@ -15,20 +16,19 @@ import com.badlogic.gdx.math.Vector3;
 public class MyGame extends Game {
 
 
-	private OrthographicCamera camera;
-	private ShapeRenderer shapeRenderer;
-	private Vector3 pos;
-SpriteBatch batch;
-Texture img;
-float x;
-float y;
+	Sprite sprite;
+    SpriteBatch batch;
+    Texture img;
+    float x;
+    float y;
 
 	public void create (){
-		this.create();
+
 
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-
+		sprite = new Sprite(img);
+		sprite.setPosition(Gdx.graphics.getWidth()/2-sprite.getWidth()/2,Gdx.graphics.getHeight()/2-sprite.getWidth()/2);
 
 		/*shapeRenderer = new ShapeRenderer();
 		camera = new OrthographicCamera();
@@ -41,17 +41,17 @@ float y;
 	}
 
 	public void render(){
-this.render();
-
-		Gdx.gl.glClearColor(1,0,0,1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if(Gdx.input.isTouched()){
 
-			y = y+4;
+			sprite.setPosition(Gdx.input.getX(),Gdx.graphics.getBackBufferHeight()-Gdx.input.getY());
 		}
+		Gdx.gl.glClearColor(0,0,0,1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
 		batch.begin();
-		batch.draw(img,x,y);
+		batch.draw(sprite,sprite.getX(),sprite.getY());
 		batch.end();
 
 
@@ -88,6 +88,7 @@ this.render();
 
 	public void dispose (){
 		//shapeRenderer.dispose();
+		img.dispose();
 	}
 
 
