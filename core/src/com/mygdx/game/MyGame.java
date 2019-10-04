@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 
-public class MyGame extends Game {
+public class MyGame extends Game implements InputProcessor {
 
 
 	Sprite sprite;
@@ -23,74 +24,73 @@ public class MyGame extends Game {
     float y;
 
 	public void create (){
-
-
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		sprite = new Sprite(img);
 		sprite.setPosition(Gdx.graphics.getWidth()/2-sprite.getWidth()/2,Gdx.graphics.getHeight()/2-sprite.getWidth()/2);
+	    Gdx.input.setInputProcessor(this);
 
-		/*shapeRenderer = new ShapeRenderer();
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-
-		pos = new Vector3(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2,0);
-*/
 
 
 	}
 
 	public void render(){
-
-		if(Gdx.input.isTouched()){
-
+	    /*if(Gdx.input.isTouched()){
 			sprite.setPosition(Gdx.input.getX(),Gdx.graphics.getBackBufferHeight()-Gdx.input.getY());
-		}
+		}*/
 		Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
 		batch.begin();
 		batch.draw(sprite,sprite.getX(),sprite.getY());
 		batch.end();
 
-
-
-
-		/*camera.update();
-
-		if(Gdx.input.isTouched()) {
-
-		pos.set(Gdx.input.getX(),Gdx.input.getY(),0);
-
-		camera.unproject(pos);
-
-		}
-
-		if (Gdx.input.isKeyPressed(Input.Keys.A)){
-
-			//pos.set(25,25);
-		}
-
-
-
-		Gdx.gl.glClearColor(1,1,1,1);
-
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-		shapeRenderer.setColor(Color.GRAY);
-		shapeRenderer.circle(pos.x,pos.y,64);
-		shapeRenderer.end();*/
-
 	}
 
 	public void dispose (){
-		//shapeRenderer.dispose();
+
 		img.dispose();
 	}
 
 
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
 
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        sprite.setPosition(screenX,Gdx.graphics.getHeight()-screenY);
+
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
+    }
 }
