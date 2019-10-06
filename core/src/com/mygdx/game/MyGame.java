@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -13,32 +14,35 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.screen.GameScreen;
 
-public class MyGame extends Game implements InputProcessor {
+public class MyGame extends Game {
 
 
-	Sprite sprite;
-    SpriteBatch batch;
-    Texture img;
-    float x;
-    float y;
+
 
 	public void create (){
-		batch = new SpriteBatch();
+
+	    Gdx.app.setLogLevel(Application.LOG_DEBUG);
+	    setScreen(new GameScreen());
+
+
+
+		/*batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		sprite = new Sprite(img);
 		sprite.setPosition(Gdx.graphics.getWidth()/2-sprite.getWidth()/2,Gdx.graphics.getHeight()/2-sprite.getWidth()/2);
-	    Gdx.input.setInputProcessor(this);
+	    Gdx.input.setInputProcessor(this);*/
 
 
 
 	}
 
-	public void render(){
+	/*public void render(){
 	    /*if(Gdx.input.isTouched()){
 			sprite.setPosition(Gdx.input.getX(),Gdx.graphics.getBackBufferHeight()-Gdx.input.getY());
 		}*/
-		Gdx.gl.glClearColor(0,0,0,1);
+	/*	Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(sprite,sprite.getX(),sprite.getY());
@@ -79,7 +83,7 @@ public class MyGame extends Game implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        sprite.setPosition(screenX,Gdx.graphics.getHeight()-screenY);
+       // sprite.setPosition(screenX,Gdx.graphics.getHeight()-screenY);
 
         return false;
     }
@@ -92,5 +96,5 @@ public class MyGame extends Game implements InputProcessor {
     @Override
     public boolean scrolled(int amount) {
         return false;
-    }
+    }*/
 }
