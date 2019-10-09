@@ -28,6 +28,7 @@ public class MyGame extends Game {
 
 
 
+
 		/*batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		sprite = new Sprite(img);

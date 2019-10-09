@@ -6,23 +6,25 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Player {
+public class Obstacles {
 
 
-    private static final float BOUNDS_RADIUS = 0.4f;
+    private static final float BOUNDS_RADIUS = 0.3f;
     public static final float SIZE = 2*BOUNDS_RADIUS;
     private static final float MAX_X_SPEED = 0.25f;
-   // Viewport viewport;
+    // Viewport viewport;
 
     private float x;
     private float y;
+
+    private float ySpeeds =0.1f;
 
 
     private Circle bounds;
 
 
 
-    public Player(){
+    public Obstacles(){
         bounds = new Circle(x,y,BOUNDS_RADIUS);
     }
 
@@ -45,16 +47,7 @@ public class Player {
 
     public void update(){
 
-        float xSpeed = 0;
-
-
-
-//         if(Gdx.input.isTouched(1) && Gdx.input.getX()<x){
-//            xSpeed = -MAX_X_SPEED;
-//        }
-//
-//        x += xSpeed;
-        updateBounds();
+        setPosition(x,y-ySpeeds);
 
     }
 
