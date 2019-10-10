@@ -3,6 +3,7 @@ package com.mygdx.game.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -68,5 +69,16 @@ public class Obstacles {
     }
 
 
+    public boolean isPlayerColliding(Player player) {
 
+        Circle playerBounds = player.getBounds();
+        return Intersector.overlaps(playerBounds,getBounds());
+
+
+
+    }
+
+    public Circle getBounds() {
+        return bounds;
+    }
 }

@@ -44,16 +44,6 @@ public class Player {
 
 
     public void update(){
-
-        float xSpeed = 0;
-
-
-
-//         if(Gdx.input.isTouched(1) && Gdx.input.getX()<x){
-//            xSpeed = -MAX_X_SPEED;
-//        }
-//
-//        x += xSpeed;
         updateBounds();
 
     }
@@ -74,6 +64,7 @@ public class Player {
         return y;
     }
 
-
-
+    public Circle getBounds() {
+        return bounds;
+    }
 }
