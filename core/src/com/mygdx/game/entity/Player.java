@@ -17,6 +17,8 @@ public class Player {
     private float x;
     private float y;
 
+    private float widthNew = 1;
+    private float heightNew = 1;
 
     private Circle bounds;
 
@@ -24,6 +26,8 @@ public class Player {
 
     public Player(){
         bounds = new Circle(x,y,BOUNDS_RADIUS);
+        setSize(SIZE,SIZE);
+
     }
 
     public void drawDebug(ShapeRenderer renderer){
@@ -37,11 +41,26 @@ public class Player {
         updateBounds();
     }
 
+    public float getWidthNew() {
+        return widthNew;
+    }
+
+    public float getHeightNew() {
+        return heightNew;
+    }
+
+    public void setSize(float width, float height){
+        this.widthNew = width;
+        this.heightNew = height;
+        updateBounds();
+    }
 
     public float getWidth(){
         return SIZE;
     }
-
+    public float getHeight(){
+        return SIZE;
+    }
 
     public void update(){
         updateBounds();
@@ -52,7 +71,10 @@ public class Player {
 
     public void updateBounds(){
 
-        bounds.setPosition(x,y);
+        float halfWidth = widthNew/2f;
+        float halfHeight = heightNew/2f;
+
+        bounds.setPosition(x + halfWidth,y+halfHeight);
     }
 
 
@@ -63,6 +85,12 @@ public class Player {
     public float getY() {
         return y;
     }
+
+
+
+
+
+
 
     public Circle getBounds() {
         return bounds;

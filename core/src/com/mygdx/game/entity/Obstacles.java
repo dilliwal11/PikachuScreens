@@ -18,8 +18,12 @@ public class Obstacles {
     private float x;
     private float y;
 
-    private float ySpeeds =0.1f;
 
+
+    private float widthNew = 1;
+    private float heightNew = 1;
+    private float ySpeeds =0.1f;
+    private boolean hit;
 
     private Circle bounds;
 
@@ -27,6 +31,7 @@ public class Obstacles {
 
     public Obstacles(){
         bounds = new Circle(x,y,BOUNDS_RADIUS);
+        setSize(SIZE,SIZE);
     }
 
     public void drawDebug(ShapeRenderer renderer){
@@ -45,6 +50,10 @@ public class Obstacles {
         return SIZE;
     }
 
+    public float getHeight(){
+        return SIZE;
+    }
+
 
     public void update(){
 
@@ -52,11 +61,17 @@ public class Obstacles {
 
     }
 
-
+    public void setSize(float width, float height){
+        this.widthNew = width;
+        this.heightNew = height;
+        updateBounds();
+    }
 
     public void updateBounds(){
+        float halfWidth = widthNew/2f;
+        float halfHeight = heightNew/2f;
 
-        bounds.setPosition(x,y);
+        bounds.setPosition(x+halfWidth,y+halfHeight);
     }
 
 
@@ -72,13 +87,22 @@ public class Obstacles {
     public boolean isPlayerColliding(Player player) {
 
         Circle playerBounds = player.getBounds();
-        return Intersector.overlaps(playerBounds,getBounds());
+        boolean overlaps =  Intersector.overlaps(playerBounds,getBounds());
 
+//        if(overlaps){
+//            hit = true;
+//        }
 
+        hit = overlaps;
+
+        return overlaps;
 
     }
+
+    public boolean isNotHit (){return  !hit;}
 
     public Circle getBounds() {
         return bounds;
     }
+
 }

@@ -42,19 +42,24 @@ public class GameScreen implements Screen {
  private float obstacleTimer;
  private float scoreTimer;
  private int lives = 3;
- private int score;
+
 
  //private boolean alive = true;
 
     public static final float WORLD_WIDTH = 6.0f; // world units
     public static final float WORLD_HEIGHT = 10.0f; // world units
     public static final float OBSTACLE_SPAWN_TIME = 0.25F;
-    public static final float SCORE_MAX_TIME = 1.25f;
+
 
 
     public static final float HUD_WIDTH = 480f;
     public static final float HUD_HEIGHT = 800f;
     public static final int LIVES_START =3;
+
+
+
+    private Texture playerTexture;
+    private Texture obstacleTexture;
 
 
     @Override
@@ -69,6 +74,9 @@ public class GameScreen implements Screen {
         hudViewPort = new FitViewport(HUD_WIDTH,HUD_HEIGHT,hudCamera);
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal(AssetsPath.UI_FONT));
+
+        playerTexture = new Texture(Gdx.files.internal("player.png"));
+        obstacleTexture = new Texture(Gdx.files.internal("obstacle.png"));
 
 
         float startPlayerX = WORLD_WIDTH/2;
@@ -89,7 +97,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-
+            renderGamePLay();
 
 
             if (Gdx.input.isTouched()) {
@@ -114,9 +122,18 @@ public class GameScreen implements Screen {
 
 
     private void update (float delta){
+
+
+        if(isGameOver()){
+
+            System.out.println("game over");
+            return;
+        }
+
+
         updatePlayer();
         updateObstacles(delta);
-        updateScore(delta);
+
 
 
         if(isPlayerColiding()){
@@ -126,24 +143,21 @@ public class GameScreen implements Screen {
 
     }
 
-    private void updateScore(float delta) {
-
-        scoreTimer += delta;
-
-        if(scoreTimer >= SCORE_MAX_TIME){
-            score += MathUtils.random(1,5);
-            scoreTimer = 0.0f;
-        }
 
 
-    }
+private boolean isGameOver(){
+        return lives <=0;
+}
+
+
+
 
 
     private boolean isPlayerColiding(){
 
 
         for(Obstacles obstacle: obstacles){
-            if (obstacle.isPlayerColliding(player)) {
+            if (obstacle.isNotHit() && obstacle.isPlayerColliding(player)) {
                 return true;
             }
         }
@@ -151,6 +165,7 @@ public class GameScreen implements Screen {
 
         return false;
     }
+
 
 
 
@@ -216,7 +231,28 @@ public class GameScreen implements Screen {
 
     }
 
+    private void renderGamePLay ()
+    {
+        viewport.apply();
 
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+
+
+        batch.draw(playerTexture,player.getX(),player.getY(),player.getWidth(),player.getHeight());
+
+
+
+        for(Obstacles obstacle: obstacles)
+        {
+            batch.draw(obstacleTexture,obstacle.getX(),obstacle.getY(),obstacle.getWidth()
+            ,obstacle.getHeight());
+        }
+
+        batch.end();
+
+
+    }
 
 
     private void renderUi(){
@@ -230,10 +266,6 @@ public class GameScreen implements Screen {
         font.draw(batch,livesText,20,HUD_HEIGHT - layout.height);
 
 
-        String scoreText = "SCORE: "+ score;
-        layout.setText(font,scoreText);
-        font.draw(batch,scoreText,HUD_WIDTH - layout.width - 20,HUD_HEIGHT - layout.height);
-
         batch.end();
     }
 
@@ -241,7 +273,8 @@ public class GameScreen implements Screen {
 
 
     private void renderDebug (){
-        ViewportUtils.drawGrid(viewport,renderer);
+        viewport.apply();
+
 
         renderer.setProjectionMatrix(camera.combined);
         renderer.begin(ShapeRenderer.ShapeType.Line);
@@ -296,6 +329,8 @@ public class GameScreen implements Screen {
         renderer.dispose();
         batch.dispose();
         font.dispose();
+        playerTexture.dispose();
+        obstacleTexture.dispose();
 
     }
 }
