@@ -7,23 +7,19 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.assets.AssetsPath;
 import com.mygdx.game.entity.Obstacles;
 import com.mygdx.game.entity.Player;
 import com.mygdx.game.util.ViewportUtils;
 
-import java.util.logging.Handler;
 
 public class GameScreen implements Screen {
 
@@ -40,7 +36,7 @@ public class GameScreen implements Screen {
  private Player player;
  private Array<Obstacles> obstacles = new Array<Obstacles>();
  private float obstacleTimer;
- private float scoreTimer;
+
  private int lives = 3;
 
 
@@ -55,6 +51,8 @@ public class GameScreen implements Screen {
     public static final float HUD_WIDTH = 480f;
     public static final float HUD_HEIGHT = 800f;
     public static final int LIVES_START =3;
+
+
 
 
 
@@ -109,16 +107,28 @@ public class GameScreen implements Screen {
 
                 worldTouch.x = MathUtils.clamp(worldTouch.x, 0, WORLD_WIDTH - player.getWidth());
                 player.setPosition(worldTouch.x, 1);
-                // xSpeed = MAX_X_SPEED;
+
             }
 
 
             renderUi();
 
 
-        renderDebug();
 
     }
+
+
+
+    private void restartGame(float delta){
+
+        obstacles.clear();
+        lives = 3;
+
+
+
+
+    }
+
 
 
     private void update (float delta){
@@ -127,6 +137,7 @@ public class GameScreen implements Screen {
         if(isGameOver()){
 
             System.out.println("game over");
+            restartGame(delta);
             return;
         }
 
@@ -146,7 +157,7 @@ public class GameScreen implements Screen {
 
 
 private boolean isGameOver(){
-        return lives <=0;
+        return lives <=-1;
 }
 
 
@@ -272,32 +283,9 @@ private boolean isGameOver(){
 
 
 
-    private void renderDebug (){
-        viewport.apply();
-
-
-        renderer.setProjectionMatrix(camera.combined);
-        renderer.begin(ShapeRenderer.ShapeType.Line);
-
-        drawDebug();
-
-
-        renderer.end();
-
-
-    }
 
 
 
-    private void drawDebug(){
-
-        player.drawDebug(renderer);
-
-        for(Obstacles obstacle:obstacles){
-            obstacle.drawDebug(renderer);
-        }
-
-    }
 
 
 
