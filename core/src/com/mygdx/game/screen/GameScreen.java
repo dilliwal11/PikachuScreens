@@ -15,10 +15,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.assets.AssetsPath;
 import com.mygdx.game.entity.Obstacles;
 import com.mygdx.game.entity.Player;
-import com.mygdx.game.util.ViewportUtils;
 
 
 public class GameScreen implements Screen {
@@ -53,6 +51,8 @@ public class GameScreen implements Screen {
     public static final int LIVES_START =3;
 
 
+    public static final String UI_FONT = "ui_font_32.fnt";
+
 
 
 
@@ -71,7 +71,7 @@ public class GameScreen implements Screen {
         hudCamera = new OrthographicCamera();
         hudViewPort = new FitViewport(HUD_WIDTH,HUD_HEIGHT,hudCamera);
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.internal(AssetsPath.UI_FONT));
+        font = new BitmapFont(Gdx.files.internal(UI_FONT));
 
         playerTexture = new Texture(Gdx.files.internal("player.png"));
         obstacleTexture = new Texture(Gdx.files.internal("obstacle.png"));
@@ -293,7 +293,7 @@ private boolean isGameOver(){
     public void resize(int width, int height) {
             viewport.update(width,height,true);
             hudViewPort.update(width,height,true);
-            ViewportUtils.debugPixelPerUnit(viewport);
+
     }
 
     @Override

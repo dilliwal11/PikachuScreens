@@ -13,12 +13,9 @@ public class Obstacles {
     private static final float BOUNDS_RADIUS = 0.3f;
     public static final float SIZE = 2*BOUNDS_RADIUS;
     private static final float MAX_X_SPEED = 0.25f;
-    // Viewport viewport;
 
     private float x;
     private float y;
-
-
 
     private float widthNew = 1;
     private float heightNew = 1;
@@ -49,14 +46,12 @@ public class Obstacles {
     public float getWidth(){
         return SIZE;
     }
-
     public float getHeight(){
         return SIZE;
     }
 
 
     public void update(){
-
         setPosition(x,y-ySpeeds);
 
     }
@@ -88,11 +83,6 @@ public class Obstacles {
 
         Circle playerBounds = player.getBounds();
         boolean overlaps =  Intersector.overlaps(playerBounds,getBounds());
-
-//        if(overlaps){
-//            hit = true;
-//        }
-
         hit = overlaps;
 
         return overlaps;
