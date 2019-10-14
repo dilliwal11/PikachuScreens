@@ -106,7 +106,7 @@ public class GameScreen implements Screen {
             lives--;
         }
 
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(180.0f/255.0f, 200f/255.0f, 200.0f/255.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
