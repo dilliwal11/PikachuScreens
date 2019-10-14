@@ -90,7 +90,22 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        update(delta);
+
+        if(isGameOver()){
+
+            System.out.println("game over");
+            restartGame(delta);
+            return;
+        }
+
+        updatePlayer();
+        updateObstacles(delta);
+
+        if(isPlayerColiding()){
+            System.out.println("collision detected");
+            lives--;
+        }
+
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -130,29 +145,6 @@ public class GameScreen implements Screen {
     }
 
 
-
-    private void update (float delta){
-
-
-        if(isGameOver()){
-
-            System.out.println("game over");
-            restartGame(delta);
-            return;
-        }
-
-
-        updatePlayer();
-        updateObstacles(delta);
-
-
-
-        if(isPlayerColiding()){
-        System.out.println("collision detected");
-        lives--;
-        }
-
-    }
 
 
 

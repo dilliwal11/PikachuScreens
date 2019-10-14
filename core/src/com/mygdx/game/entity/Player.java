@@ -30,9 +30,7 @@ public class Player {
 
     }
 
-    public void drawDebug(ShapeRenderer renderer){
-        renderer.circle(bounds.x,bounds.y,bounds.radius,30);
-    }
+
 
     public void setPosition (float x, float y){
         this.x = x;
@@ -41,13 +39,6 @@ public class Player {
         updateBounds();
     }
 
-    public float getWidthNew() {
-        return widthNew;
-    }
-
-    public float getHeightNew() {
-        return heightNew;
-    }
 
     public void setSize(float width, float height){
         this.widthNew = width;
