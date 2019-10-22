@@ -1,18 +1,14 @@
 package com.mygdx.game.entity;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.viewport.Viewport;
+
 
 public class Player {
 
 
     private static final float BOUNDS_RADIUS = 0.4f;
     public static final float SIZE = 2*BOUNDS_RADIUS;
-    private static final float MAX_X_SPEED = 0.25f;
-   // Viewport viewport;
 
     private float x;
     private float y;

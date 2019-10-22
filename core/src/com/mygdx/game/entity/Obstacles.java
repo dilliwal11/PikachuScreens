@@ -31,9 +31,6 @@ public class Obstacles {
         setSize(SIZE,SIZE);
     }
 
-    public void drawDebug(ShapeRenderer renderer){
-        renderer.circle(bounds.x,bounds.y,bounds.radius,30);
-    }
 
     public void setPosition (float x, float y){
         this.x = x;
@@ -63,10 +60,9 @@ public class Obstacles {
     }
 
     public void updateBounds(){
-        float halfWidth = widthNew/2f;
-        float halfHeight = heightNew/2f;
 
-        bounds.setPosition(x+halfWidth,y+halfHeight);
+
+        bounds.setPosition(x,y);
     }
 
 

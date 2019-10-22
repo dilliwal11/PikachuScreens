@@ -25,7 +25,7 @@ public class GameScreen implements Screen {
  private OrthographicCamera hudCamera;
  private Viewport viewport;
  private  Viewport hudViewPort;
- private SpriteBatch batch;
+    private  SpriteBatch batch;
  private BitmapFont font;
  private final GlyphLayout layout = new GlyphLayout();
 
@@ -58,6 +58,9 @@ public class GameScreen implements Screen {
 
     private Texture playerTexture;
     private Texture obstacleTexture;
+
+
+
 
 
     @Override
@@ -98,7 +101,8 @@ public class GameScreen implements Screen {
             return;
         }
 
-        updatePlayer();
+        player.update();
+
         updateObstacles(delta);
 
         if(isPlayerColiding()){
@@ -170,33 +174,6 @@ private boolean isGameOver(){
     }
 
 
-
-
-
-
-
-   private void updatePlayer (){
-
-        player.update();
-
-        blockPlayerFromLeaving();
-   }
-
-   private void blockPlayerFromLeaving(){
-        float playerX = player.getX();
-
-        if(playerX < 0){
-            playerX = 0;
-        }
-        else if (playerX > WORLD_WIDTH){
-            playerX = WORLD_WIDTH;
-        }
-
-        player.setPosition(playerX,player.getY());
-
-
-
-   }
 
    private void updateObstacles(float delta){
 
