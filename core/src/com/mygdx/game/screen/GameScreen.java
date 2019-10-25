@@ -2,6 +2,7 @@ package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,17 +16,23 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.MyGame;
 import com.mygdx.game.entity.Obstacles;
 import com.mygdx.game.entity.Player;
 
 
 public class GameScreen implements Screen {
 
- private OrthographicCamera camera;
+ private MyGame myGame;
+ private AssetManager assetManager;
+
+
+
+    private OrthographicCamera camera;
  private OrthographicCamera hudCamera;
  private Viewport viewport;
  private  Viewport hudViewPort;
-    private  SpriteBatch batch;
+ private final   SpriteBatch batch;
  private BitmapFont font;
  private final GlyphLayout layout = new GlyphLayout();
 
@@ -62,6 +69,15 @@ public class GameScreen implements Screen {
 
 
 
+    public GameScreen(MyGame myGame) {
+        this.myGame = myGame;
+        this.assetManager = myGame.getAssetManager();
+        this.batch = myGame.getSpriteBatch();
+
+    }
+
+
+
 
     @Override
     public void show() {
@@ -73,7 +89,7 @@ public class GameScreen implements Screen {
 
         hudCamera = new OrthographicCamera();
         hudViewPort = new FitViewport(HUD_WIDTH,HUD_HEIGHT,hudCamera);
-        batch = new SpriteBatch();
+
         font = new BitmapFont(Gdx.files.internal(UI_FONT));
 
         playerTexture = new Texture(Gdx.files.internal("player.png"));
@@ -284,7 +300,7 @@ private boolean isGameOver(){
     public void dispose() {
 
         renderer.dispose();
-        batch.dispose();
+
         font.dispose();
         playerTexture.dispose();
         obstacleTexture.dispose();

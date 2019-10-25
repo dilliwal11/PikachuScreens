@@ -9,9 +9,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureArray;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -26,22 +30,23 @@ public class MenuScreen  implements Screen {
     public static final float HUD_WIDTH = 480f;
     public static final float HUD_HEIGHT = 800f;
 
-    private Texture myTexture;
-    private TextureRegion myTextureRegion;
-    private TextureRegionDrawable myTexRegionDrawable;
-    private ImageButton button;
+    Texture background;
+    Texture play;
+    Texture highscore;
 
 
-   //0 private final AssetManager assetManager;
-    //private final MyGame myGame;
+    private final AssetManager assetManager;
+    private final MyGame myGame;
 
 
     private Viewport viewport;
     private Stage stage;
 
 
-    public MenuScreen() {
+    public MenuScreen(MyGame game) {
 
+        this.myGame = game;
+        assetManager = game.getAssetManager();
 
     }
 
@@ -50,24 +55,82 @@ public class MenuScreen  implements Screen {
 
         viewport = new FitViewport(HUD_WIDTH,HUD_HEIGHT);
 
-        //stage = new Stage(viewport, myGame.getSpriteBatch());
+        stage = new Stage(viewport, myGame.getSpriteBatch());
 
-        //Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(stage);
 
-        myTexture = new Texture(Gdx.files.internal("play.png"));
-        myTextureRegion = new TextureRegion(myTexture);
-        myTexRegionDrawable = new TextureRegionDrawable(myTextureRegion);
-        button = new ImageButton(myTexRegionDrawable); //Set the button up
+        initUi();
 
-      stage = new Stage(new ScreenViewport()); //Set up a stage for the ui
+
+
+
+
+        /*stage = new Stage(new ScreenViewport()); //Set up a stage for the ui
         stage.addActor(button); //Add the button to the stage to perform rendering and take input.
-        Gdx.input.setInputProcessor(stage); //Start taking input from the ui
+        Gdx.input.setInputProcessor(stage); //Start taking input from the ui*/
 
 
 
     }
 
+    private void initUi() {
 
+    Table table = new Table();
+    Table buttonTable = new Table();
+        background = new Texture(Gdx.files.internal("background.png"));
+        play = new Texture(Gdx.files.internal("play.png"));
+        highscore = new Texture(Gdx.files.internal(("highscore.png")));
+        TextureRegion myTextureRegion = new TextureRegion(background);
+        TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(myTextureRegion);
+
+
+        table.setBackground(myTexRegionDrawable);
+
+
+        TextureRegion playTextureRegion = new TextureRegion(play);
+        TextureRegion highscoreTR = new TextureRegion(highscore);
+
+        ImageButton playButton = new ImageButton (new TextureRegionDrawable(playTextureRegion));
+        ImageButton highscoreButton = new ImageButton(new TextureRegionDrawable(highscoreTR));
+        playButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+                System.out.println("play");
+
+            }
+        });
+
+
+        highscoreButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+                System.out.println("high");
+
+            }
+        });
+
+
+
+
+
+        buttonTable.defaults().pad(20);
+        buttonTable.add(playButton).row();
+        buttonTable.add(highscoreButton).row();
+        buttonTable.center();
+
+
+
+        table.add(buttonTable);
+        table.center();
+        table.setFillParent(true);
+        table.pack();
+
+        stage.addActor(table);
+
+
+    }
 
 
     @Override
@@ -85,7 +148,7 @@ public class MenuScreen  implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width,height);
+        viewport.update(width,height,true);
     }
 
     @Override

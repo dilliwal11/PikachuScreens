@@ -38,7 +38,7 @@ public class MyGame extends Game {
 		spriteBatch = new SpriteBatch();
 
 
-		setScreen(new MenuScreen());
+		setScreen(new MenuScreen(this));
 
 
 	}
