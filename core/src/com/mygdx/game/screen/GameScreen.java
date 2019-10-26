@@ -27,7 +27,6 @@ public class GameScreen implements Screen {
  private AssetManager assetManager;
 
 
-
     private OrthographicCamera camera;
  private OrthographicCamera hudCamera;
  private Viewport viewport;
@@ -43,7 +42,7 @@ public class GameScreen implements Screen {
  private float obstacleTimer;
 
  private int lives = 3;
-
+ private int score = 0;
 
  //private boolean alive = true;
 
@@ -71,7 +70,7 @@ public class GameScreen implements Screen {
 
     public GameScreen(MyGame myGame) {
         this.myGame = myGame;
-        this.assetManager = myGame.getAssetManager();
+
         this.batch = myGame.getSpriteBatch();
 
     }
@@ -113,6 +112,7 @@ public class GameScreen implements Screen {
         if(isGameOver()){
 
             System.out.println("game over");
+            GameManager.INSTANCE.updateHighScore(score);
             restartGame(delta);
             return;
         }
@@ -155,9 +155,11 @@ public class GameScreen implements Screen {
 
 
     private void restartGame(float delta){
-
         obstacles.clear();
-        lives = 3;
+        myGame.setScreen(new MenuScreen(myGame));
+
+
+        lives = 0;
 
 
 
@@ -180,6 +182,7 @@ private boolean isGameOver(){
 
 
         for(Obstacles obstacle: obstacles){
+
             if (obstacle.isNotHit() && obstacle.isPlayerColliding(player)) {
                 return true;
             }
@@ -194,6 +197,7 @@ private boolean isGameOver(){
    private void updateObstacles(float delta){
 
         for(Obstacles obstacles : obstacles){
+
             obstacles.update();
         }
 
@@ -237,12 +241,16 @@ private boolean isGameOver(){
 
         batch.draw(playerTexture,player.getX(),player.getY(),player.getWidth(),player.getHeight());
 
-
+       // score =0;
 
         for(Obstacles obstacle: obstacles)
         {
+            score= obstacles.size;
+            System.out.println(obstacles.size);
+
             batch.draw(obstacleTexture,obstacle.getX(),obstacle.getY(),obstacle.getWidth()
             ,obstacle.getHeight());
+
         }
 
         batch.end();

@@ -17,12 +17,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Logger;
 import com.mygdx.game.screen.GameScreen;
+import com.mygdx.game.screen.HighScoreScreen;
 import com.mygdx.game.screen.MenuScreen;
 
 public class MyGame extends Game {
 
 
-	private AssetManager assetManager;
+
 	private SpriteBatch spriteBatch;
 
 
@@ -32,27 +33,24 @@ public class MyGame extends Game {
 
 
 
-		assetManager = new AssetManager();
-		assetManager.getLogger().setLevel(Logger.DEBUG);
+
 
 		spriteBatch = new SpriteBatch();
 
 
-		setScreen(new MenuScreen(this));
+		setScreen(new HighScoreScreen(this));
 
 
 	}
 
 	@Override
 	public void dispose() {
-		assetManager.dispose();
+
 		spriteBatch.dispose();
 	}
 
 
-	public AssetManager getAssetManager (){
-		return assetManager;
-	}
+
 
 	public SpriteBatch getSpriteBatch(){
 		return spriteBatch;

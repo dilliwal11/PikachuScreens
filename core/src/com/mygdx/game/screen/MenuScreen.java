@@ -32,10 +32,11 @@ public class MenuScreen  implements Screen {
 
     Texture background;
     Texture play;
+    Texture playPress;
     Texture highscore;
+    Texture highscorepress;
 
 
-    private final AssetManager assetManager;
     private final MyGame myGame;
 
 
@@ -46,7 +47,7 @@ public class MenuScreen  implements Screen {
     public MenuScreen(MyGame game) {
 
         this.myGame = game;
-        assetManager = game.getAssetManager();
+
 
     }
 
@@ -79,7 +80,9 @@ public class MenuScreen  implements Screen {
     Table buttonTable = new Table();
         background = new Texture(Gdx.files.internal("background.png"));
         play = new Texture(Gdx.files.internal("play.png"));
+        playPress = new Texture(Gdx.files.internal("playpress.png"));
         highscore = new Texture(Gdx.files.internal(("highscore.png")));
+        highscorepress = new Texture(Gdx.files.internal(("highscorepress.png")));
         TextureRegion myTextureRegion = new TextureRegion(background);
         TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(myTextureRegion);
 
@@ -90,14 +93,15 @@ public class MenuScreen  implements Screen {
         TextureRegion playTextureRegion = new TextureRegion(play);
         TextureRegion highscoreTR = new TextureRegion(highscore);
 
-        ImageButton playButton = new ImageButton (new TextureRegionDrawable(playTextureRegion));
-        ImageButton highscoreButton = new ImageButton(new TextureRegionDrawable(highscoreTR));
+        ImageButton playButton = new ImageButton (new TextureRegionDrawable(playTextureRegion),new TextureRegionDrawable(playPress));
+        ImageButton highscoreButton = new ImageButton(new TextureRegionDrawable(highscoreTR), new TextureRegionDrawable(highscorepress));
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
 
                 System.out.println("play");
 
+              myGame.setScreen(new GameScreen(myGame));
             }
         });
 
@@ -107,6 +111,7 @@ public class MenuScreen  implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
 
                 System.out.println("high");
+                myGame.setScreen(new HighScoreScreen(myGame));
 
             }
         });
