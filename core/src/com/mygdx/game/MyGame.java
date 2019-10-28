@@ -39,7 +39,7 @@ public class MyGame extends Game {
 		spriteBatch = new SpriteBatch();
 
 
-		setScreen(new OptionScreens(this));
+		setScreen(new MenuScreen(this));
 
 
 	}
