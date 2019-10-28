@@ -35,6 +35,7 @@ public class MenuScreen  implements Screen {
     Texture playPress;
     Texture highscore;
     Texture highscorepress;
+    Texture option;
 
 
     private final MyGame myGame;
@@ -83,6 +84,7 @@ public class MenuScreen  implements Screen {
         playPress = new Texture(Gdx.files.internal("playpress.png"));
         highscore = new Texture(Gdx.files.internal(("highscore.png")));
         highscorepress = new Texture(Gdx.files.internal(("highscorepress.png")));
+        option = new Texture(Gdx.files.internal(("option.png")));
         TextureRegion myTextureRegion = new TextureRegion(background);
         TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(myTextureRegion);
 
@@ -95,6 +97,7 @@ public class MenuScreen  implements Screen {
 
         ImageButton playButton = new ImageButton (new TextureRegionDrawable(playTextureRegion),new TextureRegionDrawable(playPress));
         ImageButton highscoreButton = new ImageButton(new TextureRegionDrawable(highscoreTR), new TextureRegionDrawable(highscorepress));
+        ImageButton optionButton = new ImageButton(new TextureRegionDrawable(option));
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -116,6 +119,13 @@ public class MenuScreen  implements Screen {
             }
         });
 
+        optionButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                myGame.setScreen(new OptionScreens(myGame));
+
+            }
+        });
 
 
 
@@ -123,6 +133,7 @@ public class MenuScreen  implements Screen {
         buttonTable.defaults().pad(20);
         buttonTable.add(playButton).row();
         buttonTable.add(highscoreButton).row();
+        buttonTable.add(optionButton).row();
         buttonTable.center();
 
 

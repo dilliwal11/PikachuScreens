@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Logger;
 import com.mygdx.game.screen.GameScreen;
 import com.mygdx.game.screen.HighScoreScreen;
 import com.mygdx.game.screen.MenuScreen;
+import com.mygdx.game.screen.OptionScreens;
 
 public class MyGame extends Game {
 
@@ -38,7 +39,7 @@ public class MyGame extends Game {
 		spriteBatch = new SpriteBatch();
 
 
-		setScreen(new HighScoreScreen(this));
+		setScreen(new OptionScreens(this));
 
 
 	}

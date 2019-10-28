@@ -11,13 +11,16 @@ public class GameManager {
 
     private int highscore;
     private static final  String HIGH_SCORE_KEY = "highscore";
-
+    private  float speed;
+private  static final String DIFFICULTY_KEY = "difficulty";
     private Preferences PREFS;
 
 
     private GameManager(){
         PREFS = Gdx.app.getPreferences(MyGame.class.getSimpleName());
         highscore = PREFS.getInteger(HIGH_SCORE_KEY,0);
+        speed = PREFS.getFloat(DIFFICULTY_KEY,0.25f);
+
 
 
     }
@@ -39,6 +42,18 @@ public class GameManager {
     public String getHighScoreString(){
         return String.valueOf(highscore);
     }
+    public float getSpeed(){
+        return speed;
+    }
+
+    public void updateDiff(float speed){
+
+        this.speed = speed;
+
+        PREFS.putFloat(DIFFICULTY_KEY,speed);
+        PREFS.flush();
+    }
+
 
 
 

@@ -48,7 +48,7 @@ public class GameScreen implements Screen {
 
     public static final float WORLD_WIDTH = 6.0f; // world units
     public static final float WORLD_HEIGHT = 10.0f; // world units
-    public static final float OBSTACLE_SPAWN_TIME = 0.25F;
+    public static final float OBSTACLE_SPAWN_TIME = GameManager.INSTANCE.getSpeed();
 
 
 
